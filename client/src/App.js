@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Card from "./components/Card.js";
+import "./App.css";
 
 function App() {
+  const [card, setCard] = useState({});
+  useEffect(() => {
+    fetch("http://localhost:4000/card")
+      .then((res) => res.json())
+      .then((data) => setCard(data));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header>Card War</header>
+      <Card card={card} />
+      <footer>Footer</footer>
     </div>
   );
 }
