@@ -1,4 +1,4 @@
-import backCard from "../images/backCard.png";
+import backCard from "../images/backcard.jpg";
 import { useState } from "react";
 
 const Card = ({ card }) => {
