@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
-import Card from "./components/Card.js";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home.js";
+import Deck from "./components/Deck.js";
 import "./App.css";
 
 function App() {
-  const [card, setCard] = useState({});
-  useEffect(() => {
-    fetch("http://localhost:4000/card")
-      .then((res) => res.json())
-      .then((data) => setCard(data));
-  }, []);
-
   return (
     <div className="App">
-      <header>Card War</header>
-      <Card card={card} />
-      <footer>Footer</footer>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/deck" element={<Deck />} />
+      </Routes>
     </div>
   );
 }
