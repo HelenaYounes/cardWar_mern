@@ -5,7 +5,7 @@ import * as card from "../controllers/cards.js";
 
 const router = express.Router();
 
-router.get("/deck", deck.create);
+router.get("/deck", card.list);
 
 router.get("/", deck.list);
 
