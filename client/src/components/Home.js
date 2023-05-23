@@ -4,6 +4,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const createDeck = () => {
+    localStorage.clear();
     const fetchOptions = {
       method: "POST",
       body: "",
@@ -14,6 +15,7 @@ const Home = () => {
     fetch("http://localhost:4000/decks", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
+        localStorage.setItem("deck", JSON.stringify(data));
         navigate("/decks/" + data._id);
       });
   };

@@ -1,6 +1,6 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
-    case "getDeck":
+    case "setDeck":
       return action.payload;
     default:
       return state;
