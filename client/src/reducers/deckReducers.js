@@ -1,7 +1,7 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
-    case "createDeck":
-      return { ...state, deck: action.payload.deck };
+    case "getDeck":
+      return action.payload;
     default:
       return state;
   }
