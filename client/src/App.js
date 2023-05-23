@@ -7,7 +7,10 @@ import Deck from "./components/Deck.js";
 import "./App.css";
 
 const init = {
-  deck: [],
+  deck: {
+    _id: "",
+    cards: [],
+  },
   remaining: 52,
 };
 
@@ -21,7 +24,7 @@ function App() {
     <DeckContext.Provider value={deckStateProvider}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/deck" element={<Deck />} />
+        <Route path="/decks/:id" element={<Deck />} />
       </Routes>
     </DeckContext.Provider>
   );

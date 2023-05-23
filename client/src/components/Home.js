@@ -7,7 +7,14 @@ const Home = () => {
   const { state, dispatch } = useDeckContext();
 
   const createDeck = () => {
-    fetch("http://localhost:4000/deck")
+    const fetchOptions = {
+      method: "POST",
+      body: "",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("http://localhost:4000/decks", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -20,6 +27,7 @@ const Home = () => {
   useEffect(() => {
     createDeck();
   }, []);
+  useEffect(() => {}, [state.deck]);
 
   return (
     <>
@@ -27,7 +35,7 @@ const Home = () => {
       <h1>Home page</h1>
       <button
         onClick={() => {
-          navigate("deck");
+          navigate("/decks/" + state.deck._id);
         }}
       >
         create deck

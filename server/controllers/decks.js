@@ -1,15 +1,18 @@
 import axios from "axios";
+import db from "../config/db.js";
 import Deck from "../models/Deck.js";
 import Card from "../models/Card.js";
+import { ObjectId } from "mongodb";
 
 const apiUrl = "https://www.deckofcardsapi.com/api/deck/";
-
-export const create = async (req, res) => {
-  const deckData = await axios.get(
-    "https://www.deckofcardsapi.com/api/deck/new/"
-  );
-  const newDeck = await deckData.data;
-  Deck.create(newDeck);
+const cards = db.collection("cards");
+const decks = db.collection("decks");
+export const create = async (req, res, next) => {
+  const cardsList = await Card.find();
+  const newDeck = await Deck.create({ cards: cardsList });
+  // console.dir(cardsList);
+  // console.log(newDeck);
+  // const newDeck = await decks.insertMany(cardsList);
   res.json(newDeck);
 };
 
