@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 const deckSchema = new Schema({
+  _id: ObjectId,
   cards: Array,
 });
 

@@ -4,15 +4,14 @@ import Deck from "../models/Deck.js";
 import Card from "../models/Card.js";
 import { ObjectId } from "mongodb";
 
-const apiUrl = "https://www.deckofcardsapi.com/api/deck/";
-const cards = db.collection("cards");
-const decks = db.collection("decks");
+// const apiUrl = "https://www.deckofcardsapi.com/api/deck/";
+// const cards = db.collection("cards");
+// const decks = db.collection("decks");
+
 export const create = async (req, res, next) => {
   const cardsList = await Card.find();
-  const newDeck = await Deck.create({ cards: cardsList });
-  // console.dir(cardsList);
-  // console.log(newDeck);
-  // const newDeck = await decks.insertMany(cardsList);
+  const newDeck = await Deck.create({ _id: new ObjectId(), cards: cardsList });
+  console.log(newDeck._id);
   res.json(newDeck);
 };
 

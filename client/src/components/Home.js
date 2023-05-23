@@ -17,6 +17,7 @@ const Home = () => {
     fetch("http://localhost:4000/decks", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
+        debugger;
         dispatch({
           type: "createDeck",
           payload: { deck: data },
