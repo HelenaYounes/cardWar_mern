@@ -1,5 +1,4 @@
 import express from "express";
-// import "../config/db.js";
 import * as deck from "../controllers/decks.js";
 import * as card from "../controllers/cards.js";
 
@@ -9,7 +8,7 @@ router.get("/", card.list);
 router.post("/decks", deck.create);
 // router.get("/", deck.list);
 
-router.get("/deck/:id", deck.find);
+router.get("/decks/:id", deck.find);
 
 router.delete("/deck/:id", deck.deleteDeck);
 

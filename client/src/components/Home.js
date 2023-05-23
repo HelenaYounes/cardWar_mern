@@ -1,5 +1,5 @@
 import { useDeckContext } from "../context/DeckContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -17,7 +17,6 @@ const Home = () => {
     fetch("http://localhost:4000/decks", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        debugger;
         dispatch({
           type: "createDeck",
           payload: { deck: data },
@@ -28,7 +27,6 @@ const Home = () => {
   useEffect(() => {
     createDeck();
   }, []);
-  useEffect(() => {}, [state.deck]);
 
   return (
     <>

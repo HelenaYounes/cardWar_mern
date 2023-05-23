@@ -11,7 +11,6 @@ import { ObjectId } from "mongodb";
 export const create = async (req, res, next) => {
   const cardsList = await Card.find();
   const newDeck = await Deck.create({ _id: new ObjectId(), cards: cardsList });
-  console.log(newDeck._id);
   res.json(newDeck);
 };
 
@@ -22,7 +21,8 @@ export const list = async (req, res) => {
 };
 
 export const find = async (req, res) => {
-  const deckSelected = await Deck.find({ id: req.params.deck_id });
+  console.log(req.params);
+  const deckSelected = await Deck.find({ id: req.params._id });
   res.json(deckSelected);
 };
 

@@ -1,16 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Card from "./Card";
-import backCard from "../images/backcard.jpg";
-import { useDeckContext } from "../context/DeckContext";
+import { useDeckContext } from "../context/DeckContext.js";
 
 const Deck = () => {
-  const { state, dispatch } = useDeckContext();
+  const { state } = useDeckContext();
+
+  const [currentCard, setCurrentCard] = useState(0);
+  const [botCard, setBotCard] = useState(1);
+  const cardImage = state.deck.cards[currentCard].image;
+  const imageBot = state.deck.cards[botCard].image;
 
   return (
     <>
-      {state.deck.cards.map((card) => (
-        <Card key={card._id} image={card.image} />
-      ))}
+      <div className="split left">
+        <div className="centered">
+          <Card image={cardImage} />
+        </div>
+      </div>
+
+      <div className="split right">
+        <div className="centered">
+          <Card image={imageBot} />
+        </div>
+      </div>
     </>
   );
 };
