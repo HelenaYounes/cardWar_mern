@@ -1,27 +1,16 @@
-import { useState } from "react";
-import { useDeckContext } from "../context/DeckContext.js";
+import { useState, useEffect, useContext } from "react";
+import { DeckContext } from "../context/DeckContext";
 import Card from "./Card";
 
-const Deck = () => {
-  const { state, dispatch } = useDeckContext();
-  const [round, setRound] = useState(0);
-  const [playerCards, setPlayerCards] = useState([]);
-  const [botCards, setBotCards] = useState([]);
-  const cardImg = state.cards[round].image;
+const Deck = ({ player, cards }) => {
+  const state = useContext(DeckContext);
+  const round = state.round;
   return (
-    <>
-      <div className="split left">
-        <div className="centered">
-          <Card image={cardImg} />
-        </div>
+    <div className={player ? "split left" : "split right"}>
+      <div className="centered">
+        <Card card={cards[round]} />
       </div>
-
-      <div className="split right">
-        <div className="centered">
-          <Card image={cardImg} />
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 

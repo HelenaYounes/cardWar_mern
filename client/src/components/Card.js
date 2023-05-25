@@ -1,11 +1,22 @@
+import { useEffect, useState, useContext } from "react";
+import { DeckContext } from "../context/DeckContext";
 import backCard from "../images/backcard.jpg";
-import { useState } from "react";
 
-const Card = ({ image }) => {
+const Card = ({ card }) => {
+  const state = useContext(DeckContext);
   const [front, setFront] = useState(false);
+
+  useEffect(() => {
+    setFront(false);
+  }, [state.round]);
+
   return (
-    <div onClick={() => setFront(!front)}>
-      <img src={front ? image : backCard} alt="" />
+    <div>
+      <img
+        src={front ? card.image : backCard}
+        alt=""
+        onClick={() => setFront(!front)}
+      />
     </div>
   );
 };

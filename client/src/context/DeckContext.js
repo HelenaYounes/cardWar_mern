@@ -1,6 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
-const DeckContext = createContext(null);
-export const useDeckContext = () => useContext(DeckContext);
-
-export default DeckContext;
+export const DeckContext = createContext(null);
+export const DeckContextDispatch = createContext(null);
