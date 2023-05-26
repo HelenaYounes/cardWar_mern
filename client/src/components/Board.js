@@ -1,13 +1,16 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
-import Deck from "./Deck";
+import Card from "./Card";
 
 const Board = () => {
   const state = useContext(DeckContext);
   const dispatch = useContext(DeckContextDispatch);
-  const [playerCards, setPlayerCards] = useState(state.player.cards);
-  const [botCards, setBotCards] = useState(state.bot.cards);
+  const round = state.round;
+  const playerCard = state.player.cards[round];
+  const botCard = state.bot.cards[round];
+  const botScore = state.bot.score;
+  const playerScore = state.player.score;
   let deckId = useParams();
 
   const getDeck = () => {
@@ -17,16 +20,12 @@ const Board = () => {
       .then((data) => {
         let bot = structuredClone(data.bot);
         let player = structuredClone(data.player);
-        setBotCards(bot);
-        setPlayerCards(player);
         dispatch({ type: "saveDecks", playerCards: player, botCards: bot });
       });
   };
 
   const checkWinner = () => {
-    let playerCard = state.player.cards[state.round].value;
-    let botCard = state.bot.cards[state.round].value;
-    dispatch({ type: "incScore", payload: playerCard > botCard });
+    dispatch({ type: "incScore", payload: playerCard.value > botCard.value });
   };
 
   useEffect(() => {
@@ -34,12 +33,25 @@ const Board = () => {
   }, []);
 
   return (
-    <div>
-      {[true, false].map((isPlayer) => (
-        <Deck player={isPlayer} cards={isPlayer ? playerCards : botCards} />
-      ))}
+    <div className="achievements">
+      {[true, false].map((isPlayer) => {
+        let score = isPlayer ? playerScore : botScore;
+        return (
+          <div>
+            <Card card={isPlayer ? playerCard : botCard} />
+            <h1> Score = {score}</h1>
+          </div>
+        );
+      })}
 
-      <button className="centered" onClick={checkWinner}>
+      <button
+        className="centered"
+        onClick={() =>
+          state.isTurned
+            ? checkWinner()
+            : alert("click button below to draw card")
+        }
+      >
         Next
       </button>
     </div>

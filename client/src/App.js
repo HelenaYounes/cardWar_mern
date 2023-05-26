@@ -23,10 +23,47 @@ function App() {
   return (
     <DeckContext.Provider value={state}>
       <DeckContextDispatch.Provider value={dispatch}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="decks/:id" element={<Board />} />
-        </Routes>
+        <div>
+          <header class="header">
+            <a href="#" class="logo">
+              Developer
+            </a>
+            <nav class="nav-items">
+              <a href="#">Home</a>
+              <a href="#">About</a>
+              <a href="#">Contact</a>
+            </nav>
+          </header>
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="decks/:id" element={<Board />} />
+          </Routes>
+
+          <footer class="footer">
+            <div class="copy">&copy; 2022 Developer</div>
+            <div class="bottom-links">
+              <div class="links">
+                <span>More Info</span>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+              </div>
+              <div class="links">
+                <span>Social Links</span>
+                <a href="#">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
       </DeckContextDispatch.Provider>
     </DeckContext.Provider>
   );
