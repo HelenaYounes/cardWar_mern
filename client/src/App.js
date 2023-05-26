@@ -6,15 +6,17 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home.js";
 import Board from "./components/Board.js";
 import SignIn from "./components/SignIn.js";
+import "./css/signIn.css";
 import "./App.css";
 
 let init = {
   _id: { $oid: "646d52bfc1bb005a2e8810f8" },
   player: {
+    id: "Player",
     cards: [],
     score: 0,
   },
-  bot: { cards: [], score: 0 },
+  bot: { id: "Bot", cards: [], score: 0 },
   round: 0,
   isTurned: false,
 };

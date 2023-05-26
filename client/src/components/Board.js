@@ -34,12 +34,13 @@ const Board = () => {
 
   return (
     <div className="achievements">
-      {[true, false].map((isPlayer) => {
-        let score = isPlayer ? playerScore : botScore;
+      {[state.player, state.bot].map((playing) => {
         return (
           <div>
-            <Card card={isPlayer ? playerCard : botCard} />
-            <h1> Score = {score}</h1>
+            <Card card={playing.cards[round]} />
+            <h1>
+              {playing.id} Score = {playing.score}
+            </h1>
           </div>
         );
       })}
