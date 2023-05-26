@@ -8,9 +8,9 @@ const cardSchema = new Schema({
     svg: String,
     png: String,
   },
-  value: String,
+  value: Number,
   suit: String,
 });
 
-const Card = model("card", cardSchema);
+const Card = model("Card", cardSchema);
 export default Card;
