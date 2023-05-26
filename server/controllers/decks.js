@@ -20,3 +20,11 @@ export const deleteDeck = async (req, res) => {
   await Deck.deleteOne({ _id: req.params.id });
   res.send(`deleted deck _id: ${req.params.id}`);
 };
+export const createCards = async (req, res) => {
+  const cards = await axios.get(
+    "https://www.deckofcardsapi.com/api/deck/new/draw/?count=52"
+  );
+  const list = await cards.data.cards;
+  const cardList = await Card.insertMany(list);
+  res.json(list);
+};

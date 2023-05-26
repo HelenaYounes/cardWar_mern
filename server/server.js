@@ -15,7 +15,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use(routes);
 const port = process.env.PORT || 3000;
 
-// import path from "path";
-// app.use("/", express.static(path.join(__dirname, "/public")));
-
 app.listen(port, () => console.log(`server running on ${port}`));

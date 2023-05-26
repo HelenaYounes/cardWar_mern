@@ -1,16 +1,27 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
-    case "setDeck":
-      return action.payload;
     case "saveDecks":
       return {
         ...state,
-        botCards: action.botCards,
-        playerCards: [...action.playerCards],
+        player: { ...state.player, cards: action.playerCards },
+        bot: { ...state.bot, cards: action.botCards },
       };
-    case "nextRound":
+    case "incScore":
       if (state.round < 25) {
-        return { ...state, round: state.round + 1 };
+        if (action.payload) {
+          return {
+            ...state,
+            player: { ...state.player, score: state.player.score + 1 },
+
+            round: state.round + 1,
+          };
+        } else {
+          return {
+            ...state,
+            bot: { ...state.bot, score: state.bot.score + 1 },
+            round: state.round + 1,
+          };
+        }
       } else {
         return state;
       }

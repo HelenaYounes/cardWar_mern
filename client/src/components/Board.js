@@ -6,8 +6,8 @@ import Deck from "./Deck";
 const Board = () => {
   const state = useContext(DeckContext);
   const dispatch = useContext(DeckContextDispatch);
-  const [playerCards, setPlayerCards] = useState(state.playerCards);
-  const [botCards, setBotCards] = useState(state.botCards);
+  const [playerCards, setPlayerCards] = useState(state.player.cards);
+  const [botCards, setBotCards] = useState(state.bot.cards);
   let deckId = useParams();
 
   const getDeck = () => {
@@ -23,6 +23,12 @@ const Board = () => {
       });
   };
 
+  const checkWinner = () => {
+    let playerCard = state.player.cards[state.round].value;
+    let botCard = state.bot.cards[state.round].value;
+    dispatch({ type: "incScore", payload: playerCard > botCard });
+  };
+
   useEffect(() => {
     getDeck();
   }, []);
@@ -33,10 +39,7 @@ const Board = () => {
         <Deck player={isPlayer} cards={isPlayer ? playerCards : botCards} />
       ))}
 
-      <button
-        className="centered"
-        onClick={() => dispatch({ type: "nextRound" })}
-      >
+      <button className="centered" onClick={checkWinner}>
         Next
       </button>
     </div>
