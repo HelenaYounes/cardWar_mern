@@ -1,9 +1,11 @@
 import { useReducer } from "react";
+import { Link } from "react-router-dom";
 import { deckReducer } from "./reducers/deckReducers.js";
 import { DeckContext, DeckContextDispatch } from "./context/DeckContext.js";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home.js";
 import Board from "./components/Board.js";
+import SignIn from "./components/SignIn.js";
 import "./App.css";
 
 let init = {
@@ -26,20 +28,19 @@ function App() {
         <div>
           <header class="header">
             <a href="#" class="logo">
-              Developer
+              Helena's War game
             </a>
             <nav class="nav-items">
-              <a href="#">Home</a>
-              <a href="#">About</a>
+              <Link to="/">HOME</Link>
+              <Link to="/signIn">SignIn</Link>
               <a href="#">Contact</a>
             </nav>
           </header>
-
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="signIn" element={<SignIn />} />
             <Route path="decks/:id" element={<Board />} />
           </Routes>
-
           <footer class="footer">
             <div class="copy">&copy; 2022 Developer</div>
             <div class="bottom-links">
