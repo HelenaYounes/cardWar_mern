@@ -1,21 +1,18 @@
-import { useEffect, useState, useContext } from "react";
-import { DeckContext } from "../context/DeckContext";
+import { useContext } from "react";
+import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
 import backCard from "../images/backcard.jpg";
 
 const Card = ({ card }) => {
   const state = useContext(DeckContext);
-  const [front, setFront] = useState(false);
-
-  useEffect(() => {
-    setFront(false);
-  }, [state.round]);
+  const dispatch = useContext(DeckContextDispatch);
+  const isTurned = state.isTurned;
 
   return (
     <div>
       <img
-        src={front ? card.image : backCard}
+        src={isTurned ? card.image : backCard}
         alt=""
-        onClick={() => setFront(!front)}
+        onClick={() => dispatch({ type: "turnCard" })}
       />
     </div>
   );

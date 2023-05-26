@@ -14,6 +14,7 @@ let init = {
   },
   bot: { cards: [], score: 0 },
   round: 0,
+  isTurned: false,
 };
 
 function App() {

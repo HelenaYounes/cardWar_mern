@@ -1,5 +1,10 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
+    case "turnCard":
+      return {
+        ...state,
+        isTurned: true,
+      };
     case "saveDecks":
       return {
         ...state,
@@ -12,13 +17,14 @@ export const deckReducer = (state, action) => {
           return {
             ...state,
             player: { ...state.player, score: state.player.score + 1 },
-
+            isTurned: false,
             round: state.round + 1,
           };
         } else {
           return {
             ...state,
             bot: { ...state.bot, score: state.bot.score + 1 },
+            isTurned: false,
             round: state.round + 1,
           };
         }
