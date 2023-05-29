@@ -5,11 +5,11 @@ export const deckReducer = (state, action) => {
         ...state,
         isTurned: true,
       };
-    case "saveDecks":
+    case "saveGame":
       return {
         ...state,
-        player: { ...state.player, cards: action.playerCards },
-        bot: { ...state.bot, cards: action.botCards },
+        player: action.payload.player,
+        bot: action.payload.bot,
       };
     case "incScore":
       if (state.round < 25) {

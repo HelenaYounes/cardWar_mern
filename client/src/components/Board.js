@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
-import Card from "./Card";
+import Deck from "./Deck";
 
 const Board = () => {
   const state = useContext(DeckContext);
@@ -18,7 +18,7 @@ const Board = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(JSON.parse(JSON.stringify(data)));
+        dispatch({ type: "saveGame", payload: data });
       });
   };
 
@@ -29,10 +29,13 @@ const Board = () => {
   useEffect(() => {
     getDeck();
   }, []);
-
+  useEffect(() => {
+    console.log(JSON.parse(JSON.stringify(state)));
+  }, [state]);
   return (
     <div className="achievements">
-      <h1>BOArd</h1>
+      <Deck player={state.player} />
+      <Deck player={state.bot} />
     </div>
   );
 };

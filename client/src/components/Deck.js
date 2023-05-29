@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
-
-const Deck = ({ isPlaying, children }) => {
-  const { score } = useContext(DeckContext);
-  const { dispatch } = useContext(DeckContextDispatch);
-  return { children };
+import Card from "./Card";
+const Deck = ({ player }) => {
+  return <Card card={player.cards[0]} />;
 };
 
 export default Deck;
