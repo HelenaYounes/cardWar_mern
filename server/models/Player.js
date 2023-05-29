@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { dbPlayersConnection } from "../config/db.js";
 
 const { Schema, model } = mongoose;
 
@@ -7,5 +8,5 @@ const userSchema = new Schema({
   pass: String,
 });
 
-const User = model("user", userSchema);
-export default User;
+const Player = dbPlayersConnection.model("player", userSchema);
+export default Player;

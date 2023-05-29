@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { dbCardsConnection } from "../config/db.js";
 
 const { Schema, model } = mongoose;
 const cardSchema = new Schema({
@@ -12,5 +13,5 @@ const cardSchema = new Schema({
   suit: String,
 });
 
-const Card = model("Card", cardSchema);
+const Card = dbCardsConnection.model("Card", cardSchema);
 export default Card;

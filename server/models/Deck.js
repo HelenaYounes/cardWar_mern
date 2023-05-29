@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { dbDecksConnection } from "../config/db.js";
 
 const { Schema, model } = mongoose;
 const deckSchema = new Schema({
@@ -6,5 +7,5 @@ const deckSchema = new Schema({
   bot: Array,
 });
 
-const Deck = model("deck", deckSchema);
+const Deck = dbDecksConnection.model("deck", deckSchema);
 export default Deck;

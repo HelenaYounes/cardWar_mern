@@ -1,8 +1,12 @@
 import axios from "axios";
-import db from "../config/db.js";
+import {
+  dbCardsConnection,
+  dbDecksConnection,
+  dbPlayersConnection,
+} from "../config/db.js";
 import Deck from "../models/Deck.js";
 import Card from "../models/Card.js";
-import User from "../models/User.js";
+import User from "../models/Player.js";
 
 export const createDeck = async (req, res, next) => {
   const playerC = await Card.aggregate([{ $sample: { size: 26 } }]);
