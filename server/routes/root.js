@@ -5,9 +5,10 @@ import * as card from "../controllers/cards.js";
 const router = express.Router();
 
 router.get("/");
-router.post("/decks", deck.create);
+router.post("/users", deck.createUser);
+router.post("/decks", deck.createDeck);
 
-router.get("/decks/:id", deck.find);
+router.get("/decks/:id", deck.findDeck);
 
 router.delete("/deck/:id", deck.deleteDeck);
 

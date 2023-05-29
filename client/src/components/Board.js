@@ -11,10 +11,10 @@ const Board = () => {
   const botCard = state.bot.cards[round];
   const botScore = state.bot.score;
   const playerScore = state.player.score;
-  let deckId = useParams();
+  let { deckId } = useParams();
 
   const getDeck = () => {
-    let url = "http://localhost:4000/decks/" + deckId.id;
+    let url = "http://localhost:4000/decks/" + deckId;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
