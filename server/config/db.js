@@ -1,38 +1,15 @@
 import mongoose from "mongoose";
 
-const cardsDB_Url = process.env.MONGODB_URL_CARDS;
-const playersDB_Url = process.env.MONGODB_URL_PLAYERS;
-const decksDB_Url = process.env.MONGODB_URL_DECKS;
+const gameDB_Url = process.env.MONGODB_URL;
 
-const dbCardsConnection = mongoose.createConnection(cardsDB_Url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(gameDB_Url);
+let db = mongoose.connection.useDb("gamedb");
+
+db.on("error", (err) => {
+  console.log(err);
 });
-const dbPlayersConnection = mongoose.createConnection(playersDB_Url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const dbDecksConnection = mongoose.createConnection(decksDB_Url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+db.on("connected", (res) => {
+  console.log("connected on game db");
 });
 
-dbCardsConnection.on("error", (err) => {
-  console.log(err);
-});
-dbCardsConnection.on("connected", (res) => {
-  console.log("connected on cards db");
-});
-dbDecksConnection.on("error", (err) => {
-  console.log(err);
-});
-dbDecksConnection.on("connected", (res) => {
-  console.log("connected on decks db");
-});
-dbPlayersConnection.on("error", (err) => {
-  console.log(err);
-});
-dbPlayersConnection.on("connected", (res) => {
-  console.log("connected on player db");
-});
-export { dbCardsConnection, dbDecksConnection, dbPlayersConnection };
+export default db;

@@ -2,19 +2,20 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-  let { userId } = useParams();
+  let { username } = useParams();
   const createDeck = () => {
+    console.log(username);
     const fetchOptions = {
       method: "POST",
-      body: "",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ username }),
     };
     fetch("http://localhost:4000/decks", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        navigate(`/${userId}/decks/${data._id}`);
+        navigate(`/${username}/decks/${data._id}`);
       });
   };
   return (

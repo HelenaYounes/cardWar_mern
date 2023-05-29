@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/signIn.css";
 
@@ -6,7 +6,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
-    pass: "",
   });
 
   const handleChange = (e) => {
@@ -27,7 +26,7 @@ const SignIn = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data._id);
-        navigate(`/${data._id}`);
+        navigate(`/${user.username}`);
       });
   };
 
@@ -43,21 +42,19 @@ const SignIn = () => {
                 className="login__input"
                 placeholder="User name / Email"
                 name="username"
-                value={user.name}
+                value={user.username}
                 onChange={handleChange}
               />
             </div>
-            <div className="login__field">
+            {/* <div className="login__field">
               <i className="login__icon fas fa-lock"></i>
               <input
                 type="text"
                 className="login__input"
                 placeholder="Password"
                 name="pass"
-                value={user.pass}
-                onChange={handleChange}
               />
-            </div>
+            </div> */}
             <button className="button login__submit">
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>

@@ -10,15 +10,44 @@ import SignIn from "./components/SignIn.js";
 import "./App.css";
 
 let init = {
-  _id: { $oid: "646d52bfc1bb005a2e8810f8" },
   player: {
-    id: "Player",
-    cards: [],
+    username: "",
+    deck: [
+      {
+        _id: { $oid: "64742a4ee8b5b148493d93db" },
+        code: "7S",
+        image: "https://deckofcardsapi.com/static/img/7S.png",
+        images: {
+          svg: "https://deckofcardsapi.com/static/img/7S.svg",
+          png: "https://deckofcardsapi.com/static/img/7S.png",
+        },
+        value: "7",
+        suit: "SPADES",
+        __v: { $numberInt: "0" },
+      },
+    ],
     score: 0,
   },
-  bot: { id: "Bot", cards: [], score: 0 },
-  round: 0,
+  bot: {
+    username: "",
+    deck: [
+      {
+        _id: { $oid: "64742a4ee8b5b148493d93db" },
+        code: "7S",
+        image: "https://deckofcardsapi.com/static/img/7S.png",
+        images: {
+          svg: "https://deckofcardsapi.com/static/img/7S.svg",
+          png: "https://deckofcardsapi.com/static/img/7S.png",
+        },
+        value: "7",
+        suit: "SPADES",
+        __v: { $numberInt: "0" },
+      },
+    ],
+    score: 0,
+  },
   isTurned: false,
+  round: 0,
 };
 
 function App() {
@@ -41,8 +70,8 @@ function App() {
           </header>
           <Routes>
             <Route exact path="/" element={<SignIn />} />
-            <Route path="/:userId" element={<Home />} />
-            <Route path="/:userId/decks/:deckId" element={<Board />} />
+            <Route path="/:username" element={<Home />} />
+            <Route path="/:username/decks/:deckId" element={<Board />} />
           </Routes>
           <footer className="footer">
             <div className="copy">&copy; 2022 Developer</div>

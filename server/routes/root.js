@@ -1,17 +1,17 @@
 import express from "express";
 import * as deck from "../controllers/decks.js";
-import * as card from "../controllers/cards.js";
 
 const router = express.Router();
 
 router.get("/");
 router.post("/users", deck.createUser);
-router.post("/decks", deck.createDeck);
+router.post("/decks", deck.createPlayer);
+router.get("/decks/:deckId", deck.findPlayer);
 
-router.get("/decks/:id", deck.findDeck);
+router.get("/decks/:deckId", deck.findDeck);
 
-router.delete("/deck/:id", deck.deleteDeck);
+// router.delete("/decks/:id", deck.deleteDeck);
 
-router.get("/card", card.find);
+// router.get("/card", deck.findCard);
 
 export default router;

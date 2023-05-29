@@ -1,24 +1,26 @@
 import axios from "axios";
-import {
-  dbCardsConnection,
-  dbDecksConnection,
-  dbPlayersConnection,
-} from "../config/db.js";
-import Deck from "../models/Deck.js";
-import Card from "../models/Card.js";
-import User from "../models/Player.js";
+import db from "../config/db.js";
+import { Card, User, Player } from "../models/Game.js";
 
 export const createDeck = async (req, res, next) => {
-  const playerC = await Card.aggregate([{ $sample: { size: 26 } }]);
-  const botC = await Card.aggregate([{ $sample: { size: 26 } }]);
+  const cards = await Card.aggregate([{ $sample: { size: 26 } }]);
+};
 
-  const newDeck = await Deck.create({ player: playerC, bot: botC });
-  console.log("newdeck created");
-  res.json(newDeck);
+export const createPlayer = async (req, res) => {
+  const { username } = req.body.username;
+  const deck = await Card.aggregate([{ $sample: { size: 26 } }]);
+  const newPlayer = await new Player({
+    username,
+    cards: deck,
+    score: 0,
+  });
+  newPlayer.save();
+  console.log("new player with deck and score created");
+  res.json(newPlayer);
 };
 
 export const findDeck = async (req, res) => {
-  const deckSelected = await Deck.findOne({ _id: req.params.id });
+  const deckSelected = await Player.findOne({ _id: req.params.deckId });
   console.dir(deckSelected);
   res.json(deckSelected);
 };
@@ -33,22 +35,26 @@ export const createCards = async (req, res) => {
   );
   const list = await cards.data.cards;
   const cardList = await Card.insertMany(list);
+  console.log(list);
   res.json(list);
 };
 export const createUser = async (req, res) => {
   console.log(req.body);
-  const { username, pass } = req.body;
-  const newUser = {
-    username,
-    pass,
-  };
-  console.log(newUser);
-  const newUserData = await User.create(newUser);
+  const { username } = req.body;
+  const newUser = await User.create({ username });
   console.log("new user created");
-  res.json(newUserData);
+  res.json(newUser);
 };
 
-export const findUser = async (req, res) => {
-  const user = await User.findById({ _id: req.params.id });
-  res.json(user);
+export const findPlayer = async (req, res) => {
+  const player = await Player.findById({ _id: req.params.deckId });
+  res.json(player);
+};
+export const findCard = async (req, res) => {
+  const card = await Card.findOne({ _id: req.params.id });
+  res.json(card);
+};
+export const listCards = async (req, res) => {
+  const cards = await Card.find();
+  res.json(cards);
 };
