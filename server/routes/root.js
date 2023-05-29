@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.get("/");
 router.post("/users", deck.createUser);
-router.post("/decks", deck.createPlayer);
-router.get("/decks/:deckId", deck.findPlayer);
+router.post("/games", deck.createGame);
+router.get("/games/:gameId", deck.findGame);
 
-router.get("/decks/:deckId", deck.findDeck);
+router.get("/games/:gameId", deck.findGame);
 
 // router.delete("/decks/:id", deck.deleteDeck);
 

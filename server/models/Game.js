@@ -19,7 +19,7 @@ const Card = model("card", cardSchema);
 
 const playerSchema = new Schema({
   username: String,
-  cards: [cardSchema],
+  cards: Array,
   score: Number,
 });
 
@@ -31,9 +31,10 @@ const userSchema = new Schema({
 
 const User = model("user", userSchema);
 
-// const gameSchema = new Schema({
-//   players: [playerSchema],
-// });
+const gameSchema = new Schema({
+  player: Object,
+  bot: Object,
+});
 
-// const Game = model("game", gameSchema);
-export { Card, Player, User };
+const Game = model("game", gameSchema);
+export { Card, Player, User, Game };

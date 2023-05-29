@@ -12,7 +12,7 @@ import "./App.css";
 let init = {
   player: {
     username: "",
-    deck: [
+    cards: [
       {
         _id: { $oid: "64742a4ee8b5b148493d93db" },
         code: "7S",
@@ -29,8 +29,8 @@ let init = {
     score: 0,
   },
   bot: {
-    username: "",
-    deck: [
+    username: "Bot",
+    cards: [
       {
         _id: { $oid: "64742a4ee8b5b148493d93db" },
         code: "7S",
@@ -71,7 +71,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<SignIn />} />
             <Route path="/:username" element={<Home />} />
-            <Route path="/:username/decks/:deckId" element={<Board />} />
+            <Route path="/:username/games/:gameId" element={<Board />} />
           </Routes>
           <footer className="footer">
             <div className="copy">&copy; 2022 Developer</div>

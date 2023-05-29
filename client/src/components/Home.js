@@ -12,10 +12,10 @@ const Home = () => {
       },
       body: JSON.stringify({ username }),
     };
-    fetch("http://localhost:4000/decks", fetchOptions)
+    fetch("http://localhost:4000/games", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        navigate(`/${username}/decks/${data._id}`);
+        navigate(`/${username}/games/${data._id}`);
       });
   };
   return (

@@ -11,14 +11,14 @@ const Board = () => {
   // const botCard = state.bot.cards[round];
   // const botScore = state.bot.score;
   // const playerScore = state.player.score;
-  let { deckId } = useParams();
+  let { gameId } = useParams();
 
   const getDeck = () => {
-    let url = "http://localhost:4000/decks/" + deckId;
+    let url = "http://localhost:4000/games/" + gameId;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        debugger;
+        console.log(JSON.parse(JSON.stringify(data)));
       });
   };
 
