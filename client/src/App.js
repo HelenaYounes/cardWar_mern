@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home.js";
 import Board from "./components/Board.js";
 import SignIn from "./components/SignIn.js";
-// import "./css/signIn.css";
 import "./App.css";
 
 let init = {
@@ -29,7 +28,7 @@ let init = {
     score: 0,
   },
   bot: {
-    username: "Bot",
+    username: "bot",
     cards: [
       {
         _id: { $oid: "64742a4ee8b5b148493d93db" },
@@ -63,7 +62,6 @@ function App() {
             </a>
             <nav className="nav-items">
               <Link to="/">SignIn</Link>
-              {/* <Link to="/signIn">SignIn</Link> */}
               <a href="#">Contact</a>
               <a href="#">Contact</a>
             </nav>

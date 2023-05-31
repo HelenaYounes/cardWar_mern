@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -11,8 +11,8 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
+} */
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -34,10 +34,34 @@
   }
   to {
     transform: rotate(360deg);
-  }
-}
+  } */
+/* } */
 @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
+
+/* 
+@keyframes inAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+} */
 body {
   margin: 0;
   box-sizing: border-box;
@@ -153,6 +177,17 @@ body {
   margin: 10px 0;
 }
 
+.achievements button {
+  background-color: #5edaf0;
+  color: #000;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4)
+}
 .about-me {
   display: flex;
   justify-content: center;
@@ -179,6 +214,15 @@ body {
   font-size: 15px;
   color: #585858;
   margin: 10px 0;
+}
+.achievements .transitionDiv {
+ background-color: #5edaf0;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ padding: 0 40px;
+ opacity: 0;
 }
 
 /* CSS for footer */
