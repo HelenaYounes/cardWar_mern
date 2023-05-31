@@ -3,13 +3,9 @@ import mongoose from "mongoose";
 import db from "../config/db.js";
 import { Card, User, Player, Game } from "../models/Game.js";
 
-// export const createGame = async (req, res, next) => {
-//   const newGame = await Game.create({ _id: new mongoose.Types.ObjectId() });
-//   res.json(newGame._id);
-// };
-
 export const createGame = async (req, res) => {
-  const { username } = req.body.username;
+  const { username } = req.body;
+  const user = await User.findOne({ username });
   const deck = await Card.aggregate([{ $sample: { size: 26 } }]);
   const deckBot = await Card.aggregate([{ $sample: { size: 26 } }]);
   const newPlayer = await new Player({
@@ -18,7 +14,6 @@ export const createGame = async (req, res) => {
     score: 0,
   });
   const newBot = await new Player({
-    _id: new mongoose.Types.ObjectId(),
     username: "Bot",
     cards: deckBot,
     score: 0,
@@ -26,7 +21,12 @@ export const createGame = async (req, res) => {
 
   newPlayer.save();
   newBot.save();
-  const newGame = await Game.create({ player: newPlayer, bot: newBot });
+  const newGame = await Game.create({
+    player: newPlayer,
+    bot: newBot,
+    user: user._id,
+  });
+  await newGame.populate("user");
   res.json(newGame);
 };
 
@@ -36,10 +36,6 @@ export const findGame = async (req, res) => {
   res.json(gameSelected);
 };
 
-// export const deleteDeck = async (req, res) => {
-//   await Deck.deleteOne({ _id: req.params.id });
-//   res.send(`deleted deck _id: ${req.params.id}`);
-// };
 export const createCards = async (req, res) => {
   const cards = await axios.get(
     "https://www.deckofcardsapi.com/api/deck/new/draw/?count=52"
@@ -49,18 +45,18 @@ export const createCards = async (req, res) => {
   console.log(list);
   res.json(list);
 };
-export const createUser = async (req, res) => {
+
+export const signinUser = async (req, res) => {
   console.log(req.body);
   const { username } = req.body;
-  const newUser = await User.create({ username });
-  console.log("new user created");
-  res.json(newUser);
+  let user = await User.findOne({ username });
+  if (!user) {
+    user = await User.create({ _id: new mongoose.Types.ObjectId(), username });
+    console.log("new user created");
+  } else console.log("user found");
+  res.json(user);
 };
 
-// export const findPlayer = async (req, res) => {
-//   const player = await Player.findById({ _id: req.params.Id });
-//   res.json(player);
-// };
 export const findCard = async (req, res) => {
   const card = await Card.findOne({ _id: req.params.id });
   res.json(card);

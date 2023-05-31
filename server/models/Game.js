@@ -25,16 +25,20 @@ const playerSchema = new Schema({
 
 const Player = model("player", playerSchema);
 
+const gameSchema = new Schema({
+  player: Object,
+  bot: Object,
+  user: { type: Schema.Types.ObjectId, ref: "user" },
+});
+
+const Game = model("game", gameSchema);
+
 const userSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   username: String,
+  games: [{ type: Schema.Types.ObjectId, ref: "game" }],
 });
 
 const User = model("user", userSchema);
 
-const gameSchema = new Schema({
-  player: Object,
-  bot: Object,
-});
-
-const Game = model("game", gameSchema);
 export { Card, Player, User, Game };

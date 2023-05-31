@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { deckReducer } from "./reducers/deckReducers.js";
 import { DeckContext, DeckContextDispatch } from "./context/DeckContext.js";
 import { Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar.js";
 import Home from "./components/Home.js";
 import Board from "./components/Board.js";
 import SignIn from "./components/SignIn.js";
@@ -45,6 +46,10 @@ let init = {
     ],
     score: 0,
   },
+  user: {
+    username: "",
+  },
+  isLogged: false,
   isTurned: false,
   round: 0,
 };
@@ -61,13 +66,12 @@ function App() {
               Helena's War game
             </a>
             <nav className="nav-items">
-              <Link to="/">SignIn</Link>
-              <a href="#">Contact</a>
-              <a href="#">Contact</a>
+              <NavBar />
             </nav>
           </header>
           <Routes>
-            <Route exact path="/" element={<SignIn />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="/:username" element={<Home />} />
             <Route path="/:username/games/:gameId" element={<Board />} />
           </Routes>

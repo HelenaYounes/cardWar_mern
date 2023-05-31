@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   let { username } = useParams();
+
   const createDeck = () => {
     console.log(username);
     const fetchOptions = {
@@ -23,7 +24,7 @@ const Home = () => {
       <div className="intro">
         <h1>A Card Game with Mongo Express React NodeJS</h1>
         <p>Click below to start game against computer.</p>
-        <button onClick={createDeck}>create deck</button>
+        <button onClick={createDeck}>start new game</button>
       </div>
       <div className="achievements">
         <div className="work">

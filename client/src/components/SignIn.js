@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
 import "../css/signIn.css";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const state = useContext(DeckContext);
+  const dispatch = useContext(DeckContextDispatch);
   const [user, setUser] = useState({
     username: "",
   });
@@ -13,8 +16,9 @@ const SignIn = () => {
     console.log(JSON.stringify(user));
   };
 
-  const handleSubmit = async (e, req, res) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const fetchOptions = {
       method: "POST",
       headers: {
@@ -25,7 +29,7 @@ const SignIn = () => {
     await fetch("http://localhost:4000/users", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data._id);
+        dispatch({ type: "logIn", payload: data });
         navigate(`/${user.username}`);
       });
   };

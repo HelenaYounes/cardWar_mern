@@ -4,10 +4,8 @@ import * as deck from "../controllers/decks.js";
 const router = express.Router();
 
 router.get("/");
-router.post("/users", deck.createUser);
+router.post("/users", deck.signinUser);
 router.post("/games", deck.createGame);
-router.get("/games/:gameId", deck.findGame);
-
 router.get("/games/:gameId", deck.findGame);
 
 // router.delete("/decks/:id", deck.deleteDeck);

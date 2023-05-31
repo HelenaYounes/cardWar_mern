@@ -1,5 +1,9 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
+    case "logIn":
+      return { ...state, user: action.payload, isLoggedIn: true };
+    case "logOut":
+      return { ...state, isLoggedIn: false };
     case "turnCard":
       return {
         ...state,
@@ -10,6 +14,7 @@ export const deckReducer = (state, action) => {
         ...state,
         player: action.payload.player,
         bot: action.payload.bot,
+        user: action.payload.user,
       };
     case "incScore":
       if (state.round < 25) {
