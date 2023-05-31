@@ -11,7 +11,7 @@ const cardSchema = new Schema({
     svg: String,
     png: String,
   },
-  value: String,
+  value: Number,
   suit: String,
 });
 
