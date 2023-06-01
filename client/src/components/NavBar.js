@@ -7,7 +7,7 @@ const NavBar = () => {
   const dispatch = useContext(DeckContextDispatch);
   return state.isLogged ? (
     <>
-      <Link to={`/${state.user.username}`}>Home</Link>
+      <Link to={`/${state.user.userId}`}>Home</Link>
       <Link to="/" onClick={() => dispatch({ type: "logOut" })}>
         SignOut
       </Link>

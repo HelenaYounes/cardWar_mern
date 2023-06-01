@@ -47,7 +47,7 @@ let init = {
     score: 0,
   },
   user: {
-    username: "",
+    userId: "",
     games: [],
   },
   isLogged: false,
@@ -63,18 +63,18 @@ function App() {
       <DeckContextDispatch.Provider value={dispatch}>
         <div>
           <header className="header">
-            <a href="#" className="logo">
+            <Link to="" className="logo">
               Helena's War game
-            </a>
+            </Link>
             <nav className="nav-items">
               <NavBar />
             </nav>
           </header>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/:username" element={<Home />} />
-            <Route path="/:username/games/:gameId" element={<Board />} />
+            <Route path="/:userId" element={<Home />} />
+            <Route path="/:userId/games/:gameId" element={<Board />} />
           </Routes>
           <footer className="footer">
             <div className="copy">&copy; 2022 Developer</div>

@@ -26,16 +26,15 @@ const playerSchema = new Schema({
 const Player = model("player", playerSchema);
 
 const gameSchema = new Schema({
+  userId: String,
   player: Object,
   bot: Object,
-  user: { type: Schema.Types.ObjectId, ref: "user" },
 });
 
 const Game = model("game", gameSchema);
 
 const userSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  username: String,
+  userId: String,
   games: Array,
 });
 

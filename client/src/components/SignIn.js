@@ -8,7 +8,7 @@ const SignIn = () => {
   const state = useContext(DeckContext);
   const dispatch = useContext(DeckContextDispatch);
   const [user, setUser] = useState({
-    username: "",
+    userId: "",
   });
 
   const handleChange = (e) => {
@@ -30,7 +30,7 @@ const SignIn = () => {
       .then((res) => res.json())
       .then((data) => {
         dispatch({ type: "logIn", payload: data });
-        navigate(`/${user.username}`);
+        navigate(`/${user.userId}`);
       });
   };
 
@@ -45,20 +45,11 @@ const SignIn = () => {
                 type="text"
                 className="login__input"
                 placeholder="User name / Email"
-                name="username"
-                value={user.username}
+                name="userId"
+                value={user.userId}
                 onChange={handleChange}
               />
             </div>
-            {/* <div className="login__field">
-              <i className="login__icon fas fa-lock"></i>
-              <input
-                type="text"
-                className="login__input"
-                placeholder="Password"
-                name="pass"
-              />
-            </div> */}
             <button className="button login__submit">
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>

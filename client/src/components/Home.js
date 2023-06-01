@@ -6,43 +6,43 @@ const Home = () => {
   const navigate = useNavigate();
   const state = useContext(DeckContext);
   const dispatch = useContext(DeckContextDispatch);
-  let { username } = useParams();
+  let { userId } = useParams();
 
-  const createDeck = () => {
+  const createGame = () => {
     const fetchOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ userId }),
     };
     fetch("http://localhost:4000/games", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
+        debugger;
+        console.log(JSON.parse(JSON.stringify(data)));
         dispatch({ type: "saveGame", payload: data });
-        navigate(`/${username}/games/${data._id}`);
+        navigate(`/${userId}/games/${data._id}`);
       });
   };
 
-  const fetchGamesList = async (req, res) => {
-    fetch(`http://localhost:4000/${state.user.username}/games`)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: "getGames", data });
-      });
-  };
-  useEffect(() => {
-    state.isLogged ? fetchGamesList() : console.log("not logged in");
-  }, []);
-  useEffect(() => {
-    console.log(JSON.parse(JSON.stringify(state.user.games)));
-  }, [state.user.games]);
+  // const fetchGamesList = async (req, res) => {
+  //   fetch(`http://localhost:4000/${state.user.userId}/games`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       dispatch({ type: "getGames", data });
+  //     });
+  // };
+  // useEffect(() => {
+  //   // state.isLogged ? fetchGamesList() : console.log("not logged in");
+  // }, []);
+
   return (
     <main>
       <div className="intro">
         <h1>A Card Game with Mongo Express React NodeJS</h1>
         <p>Click below to start game against computer.</p>
-        <button onClick={createDeck}>start new game</button>
+        <button onClick={createGame}>start new game</button>
       </div>
       <div className="achievements">
         <div className="work">
