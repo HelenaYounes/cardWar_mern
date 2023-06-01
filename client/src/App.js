@@ -3,22 +3,56 @@ import { Link } from "react-router-dom";
 import { deckReducer } from "./reducers/deckReducers.js";
 import { DeckContext, DeckContextDispatch } from "./context/DeckContext.js";
 import { Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar.js";
 import Home from "./components/Home.js";
 import Board from "./components/Board.js";
 import SignIn from "./components/SignIn.js";
-import "./css/signIn.css";
 import "./App.css";
 
 let init = {
-  _id: { $oid: "646d52bfc1bb005a2e8810f8" },
   player: {
-    id: "Player",
-    cards: [],
+    username: "",
+    cards: [
+      {
+        _id: { $oid: "64742a4ee8b5b148493d93db" },
+        code: "7S",
+        image: "https://deckofcardsapi.com/static/img/7S.png",
+        images: {
+          svg: "https://deckofcardsapi.com/static/img/7S.svg",
+          png: "https://deckofcardsapi.com/static/img/7S.png",
+        },
+        value: "7",
+        suit: "SPADES",
+        __v: { $numberInt: "0" },
+      },
+    ],
     score: 0,
   },
-  bot: { id: "Bot", cards: [], score: 0 },
-  round: 0,
+  bot: {
+    username: "bot",
+    cards: [
+      {
+        _id: { $oid: "64742a4ee8b5b148493d93db" },
+        code: "7S",
+        image: "https://deckofcardsapi.com/static/img/7S.png",
+        images: {
+          svg: "https://deckofcardsapi.com/static/img/7S.svg",
+          png: "https://deckofcardsapi.com/static/img/7S.png",
+        },
+        value: "7",
+        suit: "SPADES",
+        __v: { $numberInt: "0" },
+      },
+    ],
+    score: 0,
+  },
+  user: {
+    userId: "",
+    games: [],
+  },
+  isLogged: false,
   isTurned: false,
+  round: 0,
 };
 
 function App() {
@@ -28,40 +62,39 @@ function App() {
     <DeckContext.Provider value={state}>
       <DeckContextDispatch.Provider value={dispatch}>
         <div>
-          <header class="header">
-            <a href="#" class="logo">
+          <header className="header">
+            <Link to="" className="logo">
               Helena's War game
-            </a>
-            <nav class="nav-items">
-              <Link to="/">HOME</Link>
-              <Link to="/signIn">SignIn</Link>
-              <a href="#">Contact</a>
+            </Link>
+            <nav className="nav-items">
+              <NavBar />
             </nav>
           </header>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="decks/:id" element={<Board />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/:userId" element={<Home />} />
+            <Route path="/:userId/games/:gameId" element={<Board />} />
           </Routes>
-          <footer class="footer">
-            <div class="copy">&copy; 2022 Developer</div>
-            <div class="bottom-links">
-              <div class="links">
+          <footer className="footer">
+            <div className="copy">&copy; 2022 Developer</div>
+            <div className="bottom-links">
+              <div className="links">
                 <span>More Info</span>
                 <a href="#">Home</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
               </div>
-              <div class="links">
+              <div className="links">
                 <span>Social Links</span>
                 <a href="#">
-                  <i class="fab fa-facebook"></i>
+                  <i className="fab fa-facebook"></i>
                 </a>
                 <a href="#">
-                  <i class="fab fa-twitter"></i>
+                  <i className="fab fa-twitter"></i>
                 </a>
                 <a href="#">
-                  <i class="fab fa-instagram"></i>
+                  <i className="fab fa-instagram"></i>
                 </a>
               </div>
             </div>

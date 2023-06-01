@@ -1,25 +1,53 @@
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
 import "../css/signIn.css";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const state = useContext(DeckContext);
+  const dispatch = useContext(DeckContextDispatch);
+  const [user, setUser] = useState({
+    userId: "",
+  });
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+    console.log(JSON.stringify(user));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    };
+    await fetch("http://localhost:4000/users", fetchOptions)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: "logIn", payload: data });
+        navigate(`/${user.userId}`);
+      });
+  };
+
   return (
     <div className="container">
       <div className="screen">
         <div className="screen__content">
-          <form className="login">
+          <form className="login" onSubmit={handleSubmit}>
             <div className="login__field">
               <i className="login__icon fas fa-user"></i>
               <input
                 type="text"
                 className="login__input"
                 placeholder="User name / Email"
-              />
-            </div>
-            <div className="login__field">
-              <i className="login__icon fas fa-lock"></i>
-              <input
-                type="password"
-                className="login__input"
-                placeholder="Password"
+                name="userId"
+                value={user.userId}
+                onChange={handleChange}
               />
             </div>
             <button className="button login__submit">

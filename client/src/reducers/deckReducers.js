@@ -1,36 +1,37 @@
 export const deckReducer = (state, action) => {
   switch (action.type) {
+    case "logIn":
+      return { ...state, user: action.payload, isLogged: true };
+    case "logOut":
+      return { ...state, isLogged: false };
     case "turnCard":
       return {
         ...state,
         isTurned: true,
       };
-    case "saveDecks":
+    case "getGames":
       return {
         ...state,
-        player: { ...state.player, cards: action.playerCards },
-        bot: { ...state.bot, cards: action.botCards },
+        user: { ...state.user, games: [...action.data.games] },
+      };
+    case "saveGame":
+      return {
+        ...state,
+        player: action.player,
+        bot: action.bot,
       };
     case "incScore":
       if (state.round < 25) {
-        if (action.payload) {
-          return {
-            ...state,
-            player: { ...state.player, score: state.player.score + 1 },
-            isTurned: false,
-            round: state.round + 1,
-          };
-        } else {
-          return {
-            ...state,
-            bot: { ...state.bot, score: state.bot.score + 1 },
-            isTurned: false,
-            round: state.round + 1,
-          };
-        }
-      } else {
-        return state;
-      }
+        return {
+          ...state,
+          [action.payload.key]: {
+            ...state[action.payload.key],
+            score: action.payload.value,
+          },
+          isTurned: false,
+          round: state.round + 1,
+        };
+      } else return alert("end of game");
     default:
       return state;
   }

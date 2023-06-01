@@ -1,20 +1,10 @@
 import { useContext } from "react";
-import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
+import { DeckContext } from "../context/DeckContext";
 import backCard from "../images/backcard.jpg";
 
 const Card = ({ card }) => {
-  const state = useContext(DeckContext);
-  const dispatch = useContext(DeckContextDispatch);
-  const isTurned = state.isTurned;
+  const { isTurned } = useContext(DeckContext);
 
-  return (
-    <div>
-      <img
-        src={isTurned ? card.image : backCard}
-        alt=""
-        onClick={() => dispatch({ type: "turnCard" })}
-      />
-    </div>
-  );
+  return <img src={isTurned ? card.image : backCard} alt="" />;
 };
 export default Card;
