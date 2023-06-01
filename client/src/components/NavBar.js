@@ -5,7 +5,7 @@ import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
 const NavBar = () => {
   const state = useContext(DeckContext);
   const dispatch = useContext(DeckContextDispatch);
-  return state.isLoggedIn ? (
+  return state.isLogged ? (
     <>
       <Link to={`/${state.user.username}`}>Home</Link>
       <Link to="/" onClick={() => dispatch({ type: "logOut" })}>

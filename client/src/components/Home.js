@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { useContext } from "react";
+import { DeckContext, DeckContextDispatch } from "../context/DeckContext";
 const Home = () => {
   const navigate = useNavigate();
+  const state = useContext(DeckContext);
+  const dispatch = useContext(DeckContextDispatch);
   let { username } = useParams();
 
   const createDeck = () => {
-    console.log(username);
     const fetchOptions = {
       method: "POST",
       headers: {
@@ -16,9 +19,22 @@ const Home = () => {
     fetch("http://localhost:4000/games", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
+        dispatch({ type: "saveGame", payload: data });
         navigate(`/${username}/games/${data._id}`);
       });
   };
+
+  const fetchGamesList = async (req, res) => {
+    fetch(`http://localhost:4000/${state.user.username}/games`)
+      .then((res) => res.json())
+      .then((data) => {
+        debugger;
+        console.dir(data);
+      });
+  };
+  // useEffect(() => {
+  //   state.isLogged ? fetchGamesList() : console.log("not logged in");
+  // }, []);
   return (
     <main>
       <div className="intro">
