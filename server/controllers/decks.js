@@ -4,12 +4,11 @@ import db from "../config/db.js";
 import { Card, User, Player, Game } from "../models/Game.js";
 
 export const createGame = async (req, res) => {
-  const { username } = req.body;
   const newPlayer = await Card.aggregate([{ $sample: { size: 26 } }])
     .exec()
     .then((deck) =>
       Player.create({
-        username,
+        username: req.body.username,
         cards: deck,
         score: 0,
       })
@@ -32,12 +31,19 @@ export const createGame = async (req, res) => {
         user: user._id,
       })
     );
-
+  const user = await User.findOne({ username: req.body.username })
+    .exec()
+    .then((user) => {
+      user.games.push(newGame);
+      user.save();
+    });
   res.json(newGame);
 };
 
 export const findGame = async (req, res) => {
-  const gameSelected = await Game.findOne({ _id: req.params.gameId });
+  const gameSelected = await Game.findOne({ _id: req.params.gameId })
+    .exec()
+    .then((game) => game.populate("user"));
   console.dir(gameSelected);
   res.json(gameSelected);
 };
@@ -53,13 +59,12 @@ export const createCards = async (req, res) => {
 };
 
 export const signinUser = async (req, res) => {
-  console.log(req.body);
   let user = await User.findOne({ username: req.body.username });
-  console.dir(user);
   if (!user) {
     user = await User.create({
       _id: new mongoose.Types.ObjectId(),
       username: req.body.username,
+      games: [],
     });
     console.log("new user created");
   } else console.log("user found");
@@ -75,11 +80,9 @@ export const listCards = async (req, res) => {
   res.json(cards);
 };
 export const listGames = async (req, res) => {
-  const { username } = req.params;
-  console.log({ username });
-  let currentUser = await User.findOne({ username: req.params.username });
-  console.dir(currentUser);
+  const user = await User.findOne({ username: req.params.username }).exec();
+
+  // console.dir(list);
   // const games = currentUser.games;
-  // res.json(currentUser);
-  res.send("list games");
+  res.json(user);
 };

@@ -13,25 +13,18 @@ const Board = () => {
 
   let { gameId } = useParams();
 
-  // const getDeck = () => {
-  //   let url = "http://localhost:4000/games/" + gameId;
-  //   fetch(url)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // dispatch({ type: "saveGame", payload: data });
-  //     });
-  // };
   const checkWinner = () => {
     const winner = playerCard > botCard ? "player" : "bot";
+    // const wins = Math.max(playerCard, botCard);
     const newScore = state[winner].score + 1;
-    dispatch({ type: "incScore", payload: { key: winner, value: newScore } });
+    dispatch({
+      type: "incScore",
+      payload: { key: winner, value: newScore },
+    });
   };
   const onClickHandler = () => {
     isTurned ? checkWinner() : dispatch({ type: "turnCard" });
   };
-  // useEffect(() => {
-  //   getDeck();
-  // }, []);
 
   return (
     <main>

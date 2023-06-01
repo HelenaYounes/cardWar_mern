@@ -9,11 +9,17 @@ export const deckReducer = (state, action) => {
         ...state,
         isTurned: true,
       };
+    case "getGames":
+      return {
+        ...state,
+        user: { ...state.user, games: action.data.games },
+      };
     case "saveGame":
       return {
         ...state,
         player: action.payload.player,
         bot: action.payload.bot,
+        // user: action.payload.user,
       };
     case "incScore":
       if (state.round < 25) {

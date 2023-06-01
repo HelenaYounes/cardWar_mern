@@ -28,13 +28,15 @@ const Home = () => {
     fetch(`http://localhost:4000/${state.user.username}/games`)
       .then((res) => res.json())
       .then((data) => {
-        debugger;
-        console.dir(data);
+        dispatch({ type: "getGames", data });
       });
   };
-  // useEffect(() => {
-  //   state.isLogged ? fetchGamesList() : console.log("not logged in");
-  // }, []);
+  useEffect(() => {
+    state.isLogged ? fetchGamesList() : console.log("not logged in");
+  }, []);
+  useEffect(() => {
+    console.log(JSON.parse(JSON.stringify(state.user.games)));
+  }, [state.user.games]);
   return (
     <main>
       <div className="intro">

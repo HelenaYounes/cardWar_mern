@@ -48,6 +48,7 @@ let init = {
   },
   user: {
     username: "",
+    games: [],
   },
   isLogged: false,
   isTurned: false,

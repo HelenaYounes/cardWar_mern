@@ -36,7 +36,7 @@ const Game = model("game", gameSchema);
 const userSchema = new Schema({
   _id: Schema.Types.ObjectId,
   username: String,
-  games: [{ type: Schema.Types.ObjectId, ref: "game" }],
+  games: Array,
 });
 
 const User = model("user", userSchema);
