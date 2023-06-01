@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/");
 router.post("/users", deck.signinUser);
-router.post("/games", deck.createGameModel);
+router.post("/games", deck.updateUserGames);
 router.get("/:userId/games/:gameId", deck.findGame);
 router.get("/:userId/games/", deck.listGames);
 

@@ -3,36 +3,16 @@ import mongoose from "mongoose";
 import db from "../config/db.js";
 import { Card, User, Player, Game } from "../models/Game.js";
 
-export const updateUser = async (req, res) => {
-  try {
-    // Find the document
-    const game = await Game.findOne({ userId: req.body.userId });
-
-    if (!game) {
-      console.log("Document not found.");
-      game = await createGame(req.body.userId);
-    } else {
-      return game;
-    }
-  } catch (error) {
-    console.error(error);
-  }
+export const updateUserGames = async (req, res) => {
+  const userId = req.body.userId;
+  const query = { userId };
+  const newGame = await createGameModel(userId);
+  const update = { $push: { games: { newGame } } };
+  const user = await User.findOneAndUpdate(query, update);
+  res.json(newGame);
 };
 
-// Asynchronously create a new model
-
-// Update the document with the new model
-// document.model = newModel;
-
-// Save the updated document
-//   const updatedDocument = await document.save();
-//   console.log(updatedDocument);
-// } catch (error) {
-//   console.error(error);
-// }
-
-export const createGameModel = async (req, res) => {
-  const userId = req.body.userId;
+export const createGameModel = async (userId) => {
   const newDeck = await Card.aggregate([{ $sample: { size: 26 } }]);
   const newDeckBot = await Card.aggregate([{ $sample: { size: 26 } }]);
   const newPlayer = new Player({
@@ -57,53 +37,8 @@ export const createGameModel = async (req, res) => {
   });
   newGame.save();
   console.dir(newGame);
-  res.json(newGame);
+  return newGame;
 };
-
-// export const returnGame = async (req, res) => {
-//   const createdGame = await createGameModel(req.body.userId);
-
-//   if (createdGame) {
-//     res.json(createdGame);
-//   } else {
-//     res.status(500).json({ error: "Error creating Game" });
-//   }
-// };
-
-// const newPlayer = await Card.aggregate([{ $sample: { size: 26 } }])
-//   .exec()
-//   .then((deck) =>
-//     Player.create({
-//       username: req.body.username,
-//       cards: deck,
-//       score: 0,
-//     })
-//   );
-// const newBot = await Card.aggregate([{ $sample: { size: 26 } }])
-//   .exec()
-//   .then((deck) =>
-//     Player.create({
-//       username: "Bot",
-//       cards: deck,
-//       score: 0,
-//     })
-//   );
-// const newGame = await User.findOne({ username: req.body.username })
-//   .exec()
-//   .then((user) =>
-//     Game.create({
-//       player: newPlayer,
-//       bot: newBot,
-//       user: user._id,
-//     })
-//   );
-// const user = await User.findOne({ username: req.body.username })
-//   .exec()
-//   .then((user) => {
-//     user.games.push(newGame);
-//     user.save();
-//   });
-// res.json(newGame);
 
 export const findGame = async (req, res) => {
   const gameSelected = await Game.findOne({ _id: req.params.gameId })

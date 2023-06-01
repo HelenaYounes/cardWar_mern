@@ -19,9 +19,9 @@ const Home = () => {
     fetch("http://localhost:4000/games", fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        debugger;
-        console.log(JSON.parse(JSON.stringify(data)));
-        dispatch({ type: "saveGame", payload: data });
+        const player = structuredClone(data.player);
+        const bot = structuredClone(data.bot);
+        dispatch({ type: "saveGame", player, bot });
         navigate(`/${userId}/games/${data._id}`);
       });
   };
